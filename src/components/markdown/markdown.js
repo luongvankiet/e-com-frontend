@@ -9,7 +9,7 @@ import rehypeHighlight from 'rehype-highlight';
 // @mui
 import Link from '@mui/material/Link';
 // routes
-import RouterLink from 'src/components/router-link';
+import { RouterLink } from 'src/components/router-link';
 
 //
 import Image from '../image';

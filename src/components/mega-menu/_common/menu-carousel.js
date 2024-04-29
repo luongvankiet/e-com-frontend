@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 
 // routes
-import RouterLink from 'src/components/router-link';
+import { RouterLink } from 'src/components/router-link';
 
 //
 import Image from '../../image';

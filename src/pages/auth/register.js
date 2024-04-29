@@ -13,8 +13,8 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAuthContext } from 'src/auth/hooks';
-import Iconify from 'src/components/iconify';
-import RouterLink from 'src/components/router-link';
+import { Iconify } from 'src/components/iconify';
+import { RouterLink } from 'src/components/router-link';
 import { useRouter, useSearchParams } from 'src/hooks/routes';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { paths } from 'src/paths';
@@ -100,7 +100,9 @@ const Register = () => {
 
   return (
     <>
-      <Helmet>Register</Helmet>
+      <Helmet>
+        <title>Register</title>
+      </Helmet>
 
       <Box sx={{ my: 'auto' }}>
         <Stack spacing={2} sx={{ mb: 5 }}>

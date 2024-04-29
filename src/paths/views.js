@@ -1,11 +1,8 @@
 import { Navigate } from 'react-router-dom';
 import { ICONS } from 'src/components/icons';
-import NotFoundPage from 'src/pages/404';
-import Page500 from 'src/pages/500';
-import Overview from 'src/pages/dashboard/overview';
-import Login from 'src/pages/auth/login';
-import Register from 'src/pages/auth/register';
-
+import { NotFoundPage, Page500 } from 'src/pages';
+import { Login, Register } from 'src/pages/auth';
+import { Overview, RoleEdit, RoleList, Settings, UserList } from 'src/pages/dashboard';
 import paths from './paths';
 
 const dashboard = [
@@ -14,6 +11,44 @@ const dashboard = [
     action: paths.dashboard.root,
     icon: ICONS.analytics,
     element: <Overview />,
+  },
+  {
+    name: 'Users',
+    action: paths.dashboard.users.root,
+    icon: ICONS.user,
+    children: [
+      {
+        name: 'List',
+        action: paths.dashboard.users.root,
+        element: <UserList />,
+      },
+    ],
+  },
+  {
+    name: 'Settings',
+    action: paths.dashboard.settings.root,
+    icon: ICONS.settings,
+    element: <Settings />,
+    children: [
+      {
+        name: 'Roles',
+        action: paths.dashboard.settings.roles.root,
+        permissions: ['roles.view-any'],
+        element: <RoleList />,
+      },
+      {
+        name: 'Role Create',
+        action: paths.dashboard.settings.roles.edit,
+        element: <RoleEdit />,
+        isRoute: true,
+      },
+      {
+        name: 'Role Detail',
+        action: paths.dashboard.settings.roles.edit,
+        element: <RoleEdit />,
+        isRoute: true,
+      },
+    ],
   },
 ];
 

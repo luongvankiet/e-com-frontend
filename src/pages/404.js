@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { m } from 'framer-motion';
 import { Button, Container, Stack, Typography } from '@mui/material';
-import RouterLink from 'src/components/router-link';
+import { RouterLink } from 'src/components/router-link';
 import { MotionContainer, varBounce } from 'src/components/animate';
 import PageNotFoundIllustration from 'src/assets/illustrations/page-not-found-illustration';
 

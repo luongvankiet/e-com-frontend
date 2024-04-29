@@ -15,11 +15,11 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 // routes
 import { usePathname } from 'src/hooks/routes';
-import RouterLink from 'src/components/router-link';
+import { RouterLink } from 'src/components/router-link';
 
 //
 import Logo from '../logo';
-import Iconify from '../iconify';
+import { Iconify } from '../Iconify';
 import Scrollbar from '../scrollbar';
 
 // ----------------------------------------------------------------------

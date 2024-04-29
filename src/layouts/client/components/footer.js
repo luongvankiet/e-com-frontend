@@ -1,8 +1,8 @@
 import { Box, Container, Divider, IconButton, Link, Stack, Typography, alpha } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import Iconify from 'src/components/iconify';
+import { Iconify } from 'src/components/iconify';
 import Logo from 'src/components/logo';
-import RouterLink from 'src/components/router-link/router-link';
+import { RouterLink } from 'src/components/router-link';
 import { paths } from 'src/paths';
 
 const Footer = () => {
@@ -50,131 +50,131 @@ const Footer = () => {
 
   return (
     <Box
-        component="footer"
+      component="footer"
+      sx={{
+        position: 'relative',
+        bgcolor: 'background.default',
+      }}
+    >
+      <Divider />
+
+      <Container
         sx={{
-          position: 'relative',
-          bgcolor: 'background.default',
+          pt: 10,
+          pb: 5,
+          textAlign: { xs: 'center', md: 'unset' },
         }}
       >
-        <Divider />
+        <Logo sx={{ width: 50 }} link="/" />
 
-        <Container
-          sx={{
-            pt: 10,
-            pb: 5,
-            textAlign: { xs: 'center', md: 'unset' },
+        <Grid
+          container
+          justifyContent={{
+            xs: 'center',
+            md: 'space-between',
           }}
+          sx={{ mt: 3 }}
         >
-          <Logo sx={{ width: 50 }} link="/" />
+          <Grid xs={8} md={3}>
+            <Stack spacing={1} direction="column" alignItems={{ xs: 'center', md: 'flex-start' }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  maxWidth: 270,
+                }}
+              >
+                <Iconify icon="mdi:map-marker-outline" width={15} sx={{ mr: 1 }} />
+                123 ABC, Central NSW 251
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  maxWidth: 270,
+                }}
+              >
+                <Iconify icon="solar:phone-outline" width={15} sx={{ mr: 1 }} />
+                0421345656
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  maxWidth: 270,
+                }}
+              >
+                <Iconify icon="material-symbols:mail-outline" width={15} sx={{ mr: 1 }} />
+                admin@example.com
+              </Typography>
+            </Stack>
+          </Grid>
 
-          <Grid
-            container
-            justifyContent={{
-              xs: 'center',
-              md: 'space-between',
-            }}
-            sx={{ mt: 3 }}
-          >
-            <Grid xs={8} md={3}>
-              <Stack spacing={1} direction="column" alignItems={{ xs: 'center', md: 'flex-start' }}>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    maxWidth: 270,
-                  }}
-                >
-                  <Iconify icon="mdi:map-marker-outline" width={15} sx={{ mr: 1 }} />
-                  123 ABC, Central NSW 251
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    maxWidth: 270,
-                  }}
-                >
-                  <Iconify icon="solar:phone-outline" width={15} sx={{ mr: 1 }} />
-                  0421345656
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    maxWidth: 270,
-                  }}
-                >
-                  <Iconify icon="material-symbols:mail-outline" width={15} sx={{ mr: 1 }} />
-                  admin@example.com
-                </Typography>
-              </Stack>
-            </Grid>
-
-            <Grid xs={12} md={6}>
-              <Stack spacing={5} direction={{ xs: 'column', md: 'row' }}>
-                {LINKS.map((list) => (
-                  <Stack
-                    key={list.headline}
-                    spacing={2}
-                    alignItems={{ xs: 'center', md: 'flex-start' }}
-                    sx={{ width: 1 }}
-                  >
-                    <Typography component="div" variant="overline">
-                      {list.headline}
-                    </Typography>
-
-                    {list.children.map((link) => (
-                      <Link
-                        key={link.name}
-                        component={RouterLink}
-                        href={link.href}
-                        color="inherit"
-                        variant="body2"
-                        sx={{ textDecoration: 'None' }}
-                      >
-                        {link.name}
-                      </Link>
-                    ))}
-                  </Stack>
-                ))}
-
+          <Grid xs={12} md={6}>
+            <Stack spacing={5} direction={{ xs: 'column', md: 'row' }}>
+              {LINKS.map((list) => (
                 <Stack
-                  key="social-footer"
+                  key={list.headline}
                   spacing={2}
                   alignItems={{ xs: 'center', md: 'flex-start' }}
                   sx={{ width: 1 }}
                 >
                   <Typography component="div" variant="overline">
-                    Follow Us On
+                    {list.headline}
                   </Typography>
-                  <Stack
-                    direction="row"
-                    justifyContent={{ xs: 'center', md: 'flex-start' }}
-                    sx={{
-                      mt: 3,
-                      mb: { xs: 5, md: 0 },
-                    }}
-                  >
-                    {_socials.map((social) => (
-                      <IconButton
-                        key={social.name}
-                        sx={{
-                          '&:hover': {
-                            bgcolor: alpha(social.color, 0.08),
-                          },
-                        }}
-                      >
-                        <Iconify color={social.color} icon={social.icon} />
-                      </IconButton>
-                    ))}
-                  </Stack>
+
+                  {list.children.map((link) => (
+                    <Link
+                      key={link.name}
+                      component={RouterLink}
+                      href={link.href}
+                      color="inherit"
+                      variant="body2"
+                      sx={{ textDecoration: 'None' }}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </Stack>
+              ))}
+
+              <Stack
+                key="social-footer"
+                spacing={2}
+                alignItems={{ xs: 'center', md: 'flex-start' }}
+                sx={{ width: 1 }}
+              >
+                <Typography component="div" variant="overline">
+                  Follow Us On
+                </Typography>
+                <Stack
+                  direction="row"
+                  justifyContent={{ xs: 'center', md: 'flex-start' }}
+                  sx={{
+                    mt: 3,
+                    mb: { xs: 5, md: 0 },
+                  }}
+                >
+                  {_socials.map((social) => (
+                    <IconButton
+                      key={social.name}
+                      sx={{
+                        '&:hover': {
+                          bgcolor: alpha(social.color, 0.08),
+                        },
+                      }}
+                    >
+                      <Iconify color={social.color} icon={social.icon} />
+                    </IconButton>
+                  ))}
                 </Stack>
               </Stack>
-            </Grid>
+            </Stack>
           </Grid>
+        </Grid>
 
-          <Typography variant="body2" sx={{ mt: 10 }}>
-            © 2021. All rights reserved
-          </Typography>
-        </Container>
-      </Box>
+        <Typography variant="body2" sx={{ mt: 10 }}>
+          © 2021. All rights reserved
+        </Typography>
+      </Container>
+    </Box>
   );
 };
 

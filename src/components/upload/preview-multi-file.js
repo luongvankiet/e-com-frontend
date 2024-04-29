@@ -8,7 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 // utils
 import { fData } from 'src/utils/format-number';
 //
-import Iconify from '../iconify';
+import { Iconify } from '../Iconify';
 import { varFade } from '../animate';
 import FileThumbnail, { fileData } from '../file-thumbnail';
 

@@ -3,8 +3,8 @@ import { forwardRef } from 'react';
 // @mui
 import Link from '@mui/material/Link';
 //
-import Iconify from 'src/components/iconify';
-import RouterLink from 'src/components/router-link/router-link';
+import { Iconify } from 'src/components/iconify';
+import { RouterLink } from 'src/components/router-link';
 import { ListItem } from './styles';
 
 // ----------------------------------------------------------------------

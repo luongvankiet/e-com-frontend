@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
-import RouterLink from '../router-link/router-link';
+import { RouterLink } from '../router-link';
 // routes
 
 // ----------------------------------------------------------------------

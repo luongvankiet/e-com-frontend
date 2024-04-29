@@ -1,26 +1,15 @@
 import { api } from 'src/paths';
 import axios from 'src/utils/axios';
 
-const login = (credentials) => axios.post(api.auth.login, credentials);
+export const AuthService = {
+  login: (credentials) => axios.post(api.auth.login, credentials),
+  register: (credentials) => axios.post(api.auth.register, credentials),
+  logout: () => axios.get(api.auth.logout),
+  getCurrentUser: () => axios.get(api.auth.me),
+  forgotPassword: (body) => axios.post(api.auth.forgotPassword, body),
+  verifyEmail: (userId, token) => {
+    const url = api.auth.verifyEmail.replace(':userId', userId).replace(':token', token);
 
-const register = (credentials) => axios.post(api.auth.register, credentials);
-
-const getCurrentUser = () => axios.get(api.auth.me);
-
-const forgotPassword = (body) => axios.post(api.auth.forgotPassword, body);
-
-const verifyEmail = (userId, token) => {
-  const url = api.auth.verifyEmail.replace(':userId', userId).replace(':token', token);
-
-  return axios.get(url);
+    return axios.get(url);
+  },
 };
-
-const AuthService = {
-  login,
-  register,
-  getCurrentUser,
-  forgotPassword,
-  verifyEmail,
-};
-
-export default AuthService;

@@ -4,7 +4,7 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 // routes
-import RouterLink from 'src/components/router-link';
+import { RouterLink } from 'src/components/router-link';
 
 // ----------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 import { Button, Container, Stack, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import RouterLink from 'src/components/router-link/router-link';
+import { RouterLink } from 'src/components/router-link';
 import { m } from 'framer-motion';
 import { MotionContainer, varBounce } from 'src/components/animate';
 import { SeverErrorIllustration } from 'src/assets/illustrations';

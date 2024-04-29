@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 // @mui
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import RouterLink from '../router-link';
+import { RouterLink } from '../router-link';
 // routes
 
 // ----------------------------------------------------------------------

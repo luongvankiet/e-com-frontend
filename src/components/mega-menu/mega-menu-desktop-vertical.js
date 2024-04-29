@@ -11,10 +11,10 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 // routes
-import RouterLink from 'src/components/router-link';
+import { RouterLink } from 'src/components/router-link';
 
 //
-import Iconify from '../iconify';
+import { Iconify } from '../Iconify';
 //
 import MenuHotProducts from './_common/menu-hot-products';
 import MenuCarousel from './_common/menu-carousel';

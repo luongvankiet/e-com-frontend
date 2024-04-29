@@ -1,8 +1,9 @@
-import PasswordIcon from "./password-icon";
-import TickIcon from "./tick-icon";
-import CrossIcon from "./cross-icon";
-import MenuIcon from "./menu-icon";
-import SvgColor from "./svg-color";
+import PasswordIcon from './password-icon';
+import TickIcon from './tick-icon';
+import CrossIcon from './cross-icon';
+import MenuIcon from './menu-icon';
+import SvgColor from './svg-color';
+import Iconify from './iconify';
 
 const icon = (name) => (
   <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
@@ -33,13 +34,8 @@ const ICONS = {
   ecommerce: icon('ic_ecommerce'),
   analytics: icon('ic_analytics'),
   dashboard: icon('ic_dashboard'),
+  settings: <Iconify icon="solar:settings-bold-duotone" />,
+  accountSettings: <Iconify icon="material-symbols:manage-accounts" />,
 };
 
-export {
-  PasswordIcon,
-  TickIcon,
-  CrossIcon,
-  MenuIcon,
-  SvgColor,
-  ICONS
-}
+export { PasswordIcon, TickIcon, CrossIcon, MenuIcon, SvgColor, ICONS };

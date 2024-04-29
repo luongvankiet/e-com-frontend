@@ -5,6 +5,7 @@ const api = {
     me: `${ROOT}/auth/me`,
     login: `${ROOT}/auth/login`,
     register: `${ROOT}/auth/register`,
+    logout: `${ROOT}/auth/logout`,
   },
   categories: {
     list: `${ROOT}/categories`,
@@ -37,18 +38,6 @@ const api = {
     statusCount: `${ROOT}/products/status-count`,
     importProducts: `${ROOT}/products/import`,
   },
-  serialNumbers: {
-    status: `${ROOT}/product-serial-numbers/status`,
-    list: `${ROOT}/product-serial-numbers`,
-    detail: (id) => `${ROOT}/product-serial-numbers/${id}`,
-    create: `${ROOT}/product-serial-numbers`,
-    createMany: `${ROOT}/product-serial-numbers/create-many`,
-    update: (id) => `${ROOT}/product-serial-numbers/${id}`,
-    trashOne: (id) => `${ROOT}/product-serial-numbers/${id}`,
-    trashMany: `${ROOT}/product-serial-numbers/delete-many`,
-    deleteMany: `${ROOT}/product-serial-numbers/permanent-delete-many`,
-    statusCount: `${ROOT}/product-serial-numbers/status-count`,
-  },
   orders: {
     list: `${ROOT}/orders`,
     detail: (id) => `${ROOT}/orders/${id}`,
@@ -80,6 +69,25 @@ const api = {
     update: (id) => `${ROOT}/users/${id}`,
     deleteOne: (id) => `${ROOT}/users/${id}`,
     deleteMany: `${ROOT}/users/delete-many`,
+    permanentDeleteMany: `${ROOT}/users/permanent-delete-many`,
+    restoreMany: `${ROOT}/users/restore-many`,
+    statusCount: `${ROOT}/users/status-count`,
+  },
+  roles: {
+    list: `${ROOT}/roles`,
+    detail: (id) => `${ROOT}/roles/${id}`,
+    create: `${ROOT}/roles`,
+    update: (id) => `${ROOT}/roles/${id}`,
+    deleteOne: (id) => `${ROOT}/roles/${id}`,
+    deleteMany: `${ROOT}/roles/delete-many`,
+    permanentDeleteMany: `${ROOT}/roles/permanent-delete-many`,
+    restoreMany: `${ROOT}/roles/restore-many`,
+  },
+  permissions: {
+    list: `${ROOT}/permissions`,
+    create: `${ROOT}/permissions`,
+    update: (id) => `${ROOT}/permissions/${id}`,
+    delete: (id) => `${ROOT}/permissions/${id}`,
   },
 };
 

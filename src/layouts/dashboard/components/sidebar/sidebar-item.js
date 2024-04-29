@@ -1,5 +1,5 @@
 import { Box, Link, ListItemText, Tooltip } from '@mui/material';
-import RouterLink from 'src/components/router-link/router-link';
+import { RouterLink } from 'src/components/router-link';
 import { KeyboardArrowDownRounded, KeyboardArrowRightRounded } from '@mui/icons-material';
 import { StyledDotIcon, StyledIcon, StyledItem } from './styles';
 
@@ -14,7 +14,7 @@ const SidebarItem = ({ item, depth, active, config, open, ...other }) => {
   return (
     <Link
       component={RouterLink}
-      href={children?.length ? '#' : action}
+      href={action}
       underline="none"
       color="inherit"
       sx={{

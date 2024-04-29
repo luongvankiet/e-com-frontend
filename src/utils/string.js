@@ -1,4 +1,5 @@
-export const slice = (string, limit = 200) => string.length > limit ? `${string.slice(0, limit)  }...` : string;
+export const slice = (string, limit = 200) =>
+  string.length > limit ? `${string.slice(0, limit)}...` : string;
 
 export const isValidEmail = (email) => {
   const regex =
@@ -36,7 +37,7 @@ export const urlWithQueryString = (url, queryFilters) => {
     ) {
       return '';
     }
-    return `${queryName}=${  encodeURI(queryFilters[queryName])}`;
+    return `${queryName}=${encodeURI(queryFilters[queryName])}`;
   });
 
   queryStringArray = queryStringArray.filter((queryString) => !!queryString);
@@ -50,7 +51,7 @@ export const urlWithQueryString = (url, queryFilters) => {
   return url;
 };
 
-export const replaceId = (url, id) => url.replace(/\{\{\s*id\s*\}\}/gi, id?.toString());
+export const replaceId = (url, id) => url.replace(/:id/gi, id?.toString());
 
 export const formatAddress = (addressLine1, addressLine2, city, state, postcode, country) => {
   const address = [];
@@ -58,19 +59,25 @@ export const formatAddress = (addressLine1, addressLine2, city, state, postcode,
     address.push(addressLine1);
   }
   if (addressLine2) {
-    address.push(`${addressLine2  },`);
+    address.push(`${addressLine2},`);
   }
   if (city) {
-    address.push(`${city  },`);
+    address.push(`${city},`);
   }
   if (state) {
     address.push(state);
   }
   if (postcode) {
-    address.push(`${postcode  },`);
+    address.push(`${postcode},`);
   }
   if (country) {
     address.push(country);
   }
   return address.join(' ');
 };
+
+export const snakeToTitle = (snakeStr) =>
+  snakeStr
+    .split('_')
+    .map((word) => capitalize(word))
+    .join(' ');

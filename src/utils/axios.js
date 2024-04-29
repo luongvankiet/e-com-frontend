@@ -25,5 +25,5 @@ export const fetcher = async (args) => {
 
   const res = await axiosInstance.get(url, { ...config });
 
-  return res.data;
+  return res;
 };

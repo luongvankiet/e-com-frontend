@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useMemo, useReducer } from 'react';
 //
-import AuthService from 'src/services/auth-service';
+import { AuthService } from 'src/services/auth-service';
 import { AuthContext } from './auth-context';
 import { setSession } from './utils';
 
@@ -102,8 +102,6 @@ export function AuthProvider({ children }) {
 
     const { access_token, user } = response.data;
 
-    console.log(response.data);
-
     setSession(access_token);
 
     dispatch({
@@ -137,11 +135,39 @@ export function AuthProvider({ children }) {
 
   // LOGOUT
   const logout = useCallback(async () => {
+    await AuthService.logout();
     setSession(null);
     dispatch({
       type: 'LOGOUT',
     });
   }, []);
+
+  const isSuperAdmin = useCallback(() => {
+    if (!state.user || !state.user.role) {
+      return false;
+    }
+    return state.user.role.name === 'super_admin';
+  }, [state.user]);
+
+  const hasPermissions = useCallback(
+    (permissions) => {
+      if (isSuperAdmin()) return true; // Super admin has all permissions
+
+      if (!state.user || !state.user.role) {
+        return false;
+      }
+
+      const userPermissions = new Set(state.user.role.permissions.map((perm) => perm.name));
+
+      if (typeof permissions === 'string') return userPermissions.has(permissions);
+
+      if (typeof permissions === 'object')
+        return permissions.every((perm) => userPermissions.has(perm));
+
+      return false;
+    },
+    [isSuperAdmin, state]
+  );
 
   // ----------------------------------------------------------------------
 
@@ -159,8 +185,10 @@ export function AuthProvider({ children }) {
       login,
       register,
       logout,
+      isSuperAdmin,
+      hasPermissions,
     }),
-    [login, logout, register, state.user, status]
+    [hasPermissions, isSuperAdmin, login, logout, register, state.user, status]
   );
 
   return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;

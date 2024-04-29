@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import ButtonBase from '@mui/material/ButtonBase';
 //
-import Iconify from '../../iconify';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 

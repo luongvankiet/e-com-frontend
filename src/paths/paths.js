@@ -27,11 +27,6 @@ const paths = {
       create: `${ROOTS.DASHBOARD}/products/create`,
       edit: `${ROOTS.DASHBOARD}/products/:id`,
     },
-    serialNumbers: {
-      root: `${ROOTS.DASHBOARD}/stock-in`,
-      create: `${ROOTS.DASHBOARD}/stock-in/create`,
-      edit: `${ROOTS.DASHBOARD}/stock-in/:id`,
-    },
     orders: {
       root: `${ROOTS.DASHBOARD}/orders`,
       create: `${ROOTS.DASHBOARD}/orders/create`,
@@ -42,6 +37,14 @@ const paths = {
       root: `${ROOTS.DASHBOARD}/users`,
       create: `${ROOTS.DASHBOARD}/users/create`,
       edit: `${ROOTS.DASHBOARD}/users/:id`,
+    },
+    settings: {
+      root: `${ROOTS.DASHBOARD}/settings`,
+      roles: {
+        root: `${ROOTS.DASHBOARD}/settings/roles`,
+        create: `${ROOTS.DASHBOARD}/settings/roles/create`,
+        edit: `${ROOTS.DASHBOARD}/settings/roles/:id`,
+      },
     },
   },
   client: {

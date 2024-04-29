@@ -35,7 +35,7 @@ const Sidebar = ({ openNav, onCloseNav }) => {
       }}
     >
       <Box sx={{ mt: 3, mb: 2 }}>
-        <Logo sx={{ ml: 4, width: 24 }} />
+        <Logo sx={{ ml: 3 }} />
       </Box>
 
       <List disablePadding sx={{ px: 2 }}>

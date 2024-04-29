@@ -1,26 +1,31 @@
-import PropTypes from 'prop-types';
 import { m } from 'framer-motion';
+import PropTypes from 'prop-types';
 // @mui
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 // hooks
-import { useMockedUser } from 'src/hooks/use-mocked-user';
 // assets
 import { ForbiddenIllustration } from 'src/assets/illustrations';
 // components
+import { useContext } from 'react';
 import { MotionContainer, varBounce } from 'src/components/animate';
+import { AuthContext } from '../context';
 
 // ----------------------------------------------------------------------
 
-export default function RoleBasedGuard({ hasContent, roles, children, sx }) {
+export default function RoleBasedGuard({ roles, children, sx }) {
   // Logic here to get current user role
-  const { user } = useMockedUser();
+  const { user, isSuperAdmin } = useContext(AuthContext);
 
   // const currentRole = 'user';
   const currentRole = user?.role; // admin;
 
-  if (typeof roles !== 'undefined' && !roles.includes(currentRole)) {
-    return hasContent ? (
+  if (isSuperAdmin()) {
+    return <>{children}</>;
+  }
+
+  if (typeof roles !== 'undefined' && !roles.includes(currentRole.name)) {
+    return (
       <Container component={MotionContainer} sx={{ textAlign: 'center', ...sx }}>
         <m.div variants={varBounce().in}>
           <Typography variant="h3" paragraph>
@@ -43,7 +48,7 @@ export default function RoleBasedGuard({ hasContent, roles, children, sx }) {
           />
         </m.div>
       </Container>
-    ) : null;
+    );
   }
 
   return <> {children} </>;
@@ -51,7 +56,6 @@ export default function RoleBasedGuard({ hasContent, roles, children, sx }) {
 
 RoleBasedGuard.propTypes = {
   children: PropTypes.node,
-  hasContent: PropTypes.bool,
   roles: PropTypes.arrayOf(PropTypes.string),
   sx: PropTypes.object,
 };

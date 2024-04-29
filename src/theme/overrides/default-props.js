@@ -1,6 +1,6 @@
 import SvgIcon from '@mui/material/SvgIcon';
 // components
-import Iconify from 'src/components/iconify';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
