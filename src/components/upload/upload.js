@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 // assets
 import { UploadIllustration } from 'src/assets/illustrations';
 //
-import { Iconify } from '../Iconify';
+import { Iconify } from '../iconify';
 //
 import RejectionFiles from './errors-rejection-files';
 import MultiFilePreview from './preview-multi-file';
@@ -151,7 +151,7 @@ export default function Upload({
             bgcolor: (theme) => alpha(theme.palette.error.main, 0.08),
           }),
           ...(hasFile && {
-            padding: '24% 0',
+            padding: '50% 0',
           }),
         }}
       >

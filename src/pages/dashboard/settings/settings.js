@@ -5,7 +5,8 @@ import { RouterLink } from 'src/components/router-link';
 import { paths } from 'src/paths';
 import { Helmet } from 'react-helmet-async';
 import { useSettingsContext } from 'src/components/settings';
-import CustomBreadcrumbs from 'src/components/custom-breadcrumbs/custom-breadcrumbs';
+import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
+import { PROJECT_NAME } from 'src/config-global';
 
 const Settings = () => {
   const settings = useSettingsContext();
@@ -13,7 +14,7 @@ const Settings = () => {
   return (
     <>
       <Helmet>
-        <title>Dashboard: Settings</title>
+        <title>Dashboard: Settings | {PROJECT_NAME}</title>
       </Helmet>
 
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>

@@ -1,0 +1,210 @@
+import {
+  Button,
+  Checkbox,
+  IconButton,
+  Link,
+  ListItemText,
+  MenuItem,
+  TableCell,
+  TableRow,
+  Tooltip,
+} from '@mui/material';
+import { format, isBefore } from 'date-fns';
+import { ConfirmDialog } from 'src/components/custom-dialog';
+import CustomPopover, { usePopover } from 'src/components/custom-popover';
+import { Iconify } from 'src/components/iconify';
+import Image from 'src/components/image';
+import Label from 'src/components/label';
+import { RouterLink } from 'src/components/router-link';
+import { useBoolean } from 'src/hooks/use-boolean';
+import { paths } from 'src/paths';
+import { replaceId } from 'src/utils/string';
+import BrandQuickEditForm from './brand-quick-edit-form';
+
+const BrandTableRow = ({
+  brand,
+  selected,
+  onEditRow,
+  onSelectRow,
+  onDeleteRow,
+  onRestoreRow,
+  onRefresh,
+}) => {
+  const { id, name, description, image, deleted_at, published_at, updated_at } = brand;
+
+  const confirm = useBoolean();
+
+  const confirmRestore = useBoolean();
+
+  const quickEdit = useBoolean();
+
+  const popover = usePopover();
+
+  return (
+    <>
+      <TableRow hover selected={selected}>
+        <TableCell padding="checkbox">
+          <Checkbox checked={selected} onClick={onSelectRow} />
+        </TableCell>
+
+        <TableCell sx={{ whiteSpace: 'nowrap', display: 'flex', alignItems: 'center' }}>
+          <Image
+            alt={name}
+            src={image?.url}
+            sx={{
+              width: 64,
+              height: 64,
+              borderRadius: 2,
+              mr: 2,
+            }}
+            variant="rounded"
+            ratio="1/1"
+          />
+
+          <Link
+            component={RouterLink}
+            href={replaceId(paths.dashboard.brands.edit, id)}
+            sx={{ color: 'text.secondary', typography: 'subtitle1' }}
+          >
+            {name}
+          </Link>
+        </TableCell>
+
+        <TableCell>{description || '--'}</TableCell>
+
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>
+          <Label
+            variant="soft"
+            color={
+              (!deleted_at &&
+                ((!published_at && 'primary') ||
+                  (isBefore(new Date(published_at), new Date()) && 'success'))) ||
+              'warning'
+            }
+          >
+            {(!deleted_at &&
+              ((!published_at && 'Draft') ||
+                (isBefore(new Date(published_at), new Date()) && 'Published'))) ||
+              'Trashed'}
+          </Label>
+        </TableCell>
+
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>
+          <ListItemText
+            primary={format(new Date(updated_at), 'dd MMM yyyy')}
+            secondary={format(new Date(updated_at), 'p')}
+            primaryTypographyProps={{ typography: 'body 2', noWrap: true }}
+            secondaryTypographyProps={{ mt: 0.5, component: 'span', typography: 'caption' }}
+          />
+        </TableCell>
+
+        <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+          {!deleted_at ? (
+            <>
+              <Tooltip title="Quick Edit" placement="top" arrow>
+                <IconButton
+                  color={quickEdit.value ? 'inherit' : 'default'}
+                  onClick={quickEdit.onTrue}
+                >
+                  <Iconify icon="solar:pen-bold" />
+                </IconButton>
+              </Tooltip>
+
+              <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+                <Iconify icon="eva:more-vertical-fill" />
+              </IconButton>
+            </>
+          ) : (
+            <>
+              <Tooltip title="Restore" placement="top" arrow>
+                <IconButton color="default" onClick={confirmRestore.onTrue}>
+                  <Iconify icon="material-symbols:settings-backup-restore-rounded" />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Permanent Delete" placement="top" arrow>
+                <IconButton color="error" onClick={confirm.onTrue}>
+                  <Iconify icon="solar:trash-bin-trash-bold" />
+                </IconButton>
+              </Tooltip>
+            </>
+          )}
+        </TableCell>
+      </TableRow>
+
+      <BrandQuickEditForm
+        brand={brand}
+        open={quickEdit.value}
+        onClose={quickEdit.onFalse}
+        onDeleteRow={() => onDeleteRow(brand.id)}
+        onRefresh={onRefresh}
+      />
+
+      <ConfirmDialog
+        open={confirm.value}
+        onClose={confirm.onFalse}
+        title="Delete"
+        content="Are you sure want to delete?"
+        action={
+          <Button variant="contained" color="error" onClick={onDeleteRow}>
+            Delete
+          </Button>
+        }
+      />
+
+      <CustomPopover
+        open={popover.open}
+        onClose={popover.onClose}
+        arrow="right-top"
+        sx={{ width: 140 }}
+      >
+        <MenuItem
+          onClick={() => {
+            onEditRow();
+            popover.onClose();
+          }}
+        >
+          <Iconify icon="solar:pen-bold" />
+          Edit
+        </MenuItem>
+
+        <MenuItem
+          onClick={() => {
+            confirm.onTrue();
+            popover.onClose();
+          }}
+          sx={{ color: 'error.main' }}
+        >
+          <Iconify icon="solar:trash-bin-trash-bold" />
+          Delete
+        </MenuItem>
+      </CustomPopover>
+
+      <ConfirmDialog
+        open={confirm.value}
+        onClose={confirm.onFalse}
+        title="Delete"
+        content="Are you sure want to delete brands?"
+        action={
+          <Button variant="contained" color="error" onClick={onDeleteRow}>
+            Delete
+          </Button>
+        }
+      />
+
+      <ConfirmDialog
+        open={confirmRestore.value}
+        onClose={confirmRestore.onFalse}
+        title="Restore"
+        content="Are you sure want to restore brands?"
+        action={
+          <Button variant="contained" color="success" onClick={onRestoreRow}>
+            Restore
+          </Button>
+        }
+      />
+    </>
+  );
+};
+
+export default BrandTableRow;

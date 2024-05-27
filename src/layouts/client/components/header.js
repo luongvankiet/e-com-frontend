@@ -1,16 +1,16 @@
-import { AppBar, Box, Button, Container, Stack, Toolbar, useTheme } from "@mui/material";
-import { useContext } from "react";
-import { AuthContext } from "src/auth/context";
-import Logo from "src/components/logo";
-import { useOffSetTop } from "src/hooks/use-off-set-top";
-import { useResponsive } from "src/hooks/use-responsive";
-import { HEADER } from "src/layouts/config-layout";
-import { ProfileDropdown } from "src/layouts/dashboard/components";
-import { paths } from "src/paths";
-import { bgBlur } from "src/theme/css";
-import HeaderShadow from "./header-shadow";
-import NavDesktop from "./nav/desktop/nav-desktop";
-import NavMobile from "./nav/mobile/nav-mobile";
+import { AppBar, Box, Button, Container, Stack, Toolbar, useTheme } from '@mui/material';
+import { useContext } from 'react';
+import { AuthContext } from 'src/auth/context';
+import Logo from 'src/components/logo';
+import { useOffSetTop } from 'src/hooks/use-off-set-top';
+import { useResponsive } from 'src/hooks/use-responsive';
+import { HEADER } from 'src/layouts/config-layout';
+import { ProfileDropdown } from 'src/layouts/dashboard/components';
+import { paths } from 'src/paths';
+import { bgBlur } from 'src/theme/css';
+import HeaderShadow from './header-shadow';
+import NavDesktop from './nav/desktop/nav-desktop';
+import NavMobile from './nav/mobile/nav-mobile';
 
 const Header = () => {
   const theme = useTheme();
@@ -21,7 +21,8 @@ const Header = () => {
 
   const { user } = useContext(AuthContext);
 
-  return <AppBar sx={{ backgroundColor: theme.palette.background.default }}>
+  return (
+    <AppBar sx={{ backgroundColor: theme.palette.background.default }}>
       <Toolbar
         disableGutters
         sx={{
@@ -46,24 +47,27 @@ const Header = () => {
         <Container sx={{ height: 1, display: 'flex', alignItems: 'center' }}>
           {!mdUp && <NavMobile offsetTop={offsetTop} />}
 
-          <Logo link="/" sx={{ width: 35 }} noText />
+          <Logo link="/" />
 
           <Box sx={{ flexGrow: 1 }} />
 
           {mdUp && <NavDesktop offsetTop={offsetTop} />}
 
           <Stack alignItems="center" direction={{ xs: 'row', md: 'row-reverse' }}>
-            {!user
-              ? <Button variant="outlined" href={paths.auth.login} >
+            {!user ? (
+              <Button variant="outlined" href={paths.auth.login}>
                 Login
               </Button>
-              : <ProfileDropdown />}
+            ) : (
+              <ProfileDropdown />
+            )}
           </Stack>
         </Container>
       </Toolbar>
 
       {offsetTop && <HeaderShadow />}
     </AppBar>
-}
+  );
+};
 
-export default Header
+export default Header;

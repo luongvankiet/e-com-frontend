@@ -4,6 +4,7 @@ import { Button, Container, Stack, Typography } from '@mui/material';
 import { RouterLink } from 'src/components/router-link';
 import { MotionContainer, varBounce } from 'src/components/animate';
 import PageNotFoundIllustration from 'src/assets/illustrations/page-not-found-illustration';
+import { PROJECT_NAME } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
@@ -11,7 +12,7 @@ export default function NotFoundPage() {
   return (
     <>
       <Helmet>
-        <title> 404 Page Not Found!</title>
+        <title> 404 Page Not Found! | {PROJECT_NAME}</title>
       </Helmet>
 
       <Container component="main">

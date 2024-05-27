@@ -19,7 +19,7 @@ import { RouterLink } from 'src/components/router-link';
 
 //
 import Logo from '../logo';
-import { Iconify } from '../Iconify';
+import { Iconify } from '../iconify';
 import Scrollbar from '../scrollbar';
 
 // ----------------------------------------------------------------------

@@ -4,12 +4,13 @@ import { RouterLink } from 'src/components/router-link';
 import { m } from 'framer-motion';
 import { MotionContainer, varBounce } from 'src/components/animate';
 import { SeverErrorIllustration } from 'src/assets/illustrations';
+import { PROJECT_NAME } from 'src/config-global';
 
 export default function Page500() {
   return (
     <>
       <Helmet>
-        <title> 404 Page Not Found!</title>
+        <title> 500 Internal Server Error! | {PROJECT_NAME}</title>
       </Helmet>
 
       <Container component="main">

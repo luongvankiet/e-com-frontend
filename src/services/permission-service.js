@@ -9,7 +9,7 @@ export const PermissionService = {
 
     const { data, isLoading, error } = useSWR(URL, fetcher);
 
-    const memorizedValue = useMemo(
+    const memoizedValue = useMemo(
       () => ({
         permissions: data?.data || [],
         permissionsLoading: isLoading,
@@ -18,7 +18,7 @@ export const PermissionService = {
       [data?.data, error, isLoading]
     );
 
-    return memorizedValue;
+    return memoizedValue;
   },
 
   createPermission: (body) => axios.post(api.permissions.create, body),

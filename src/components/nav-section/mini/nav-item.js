@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { RouterLink } from 'src/components/router-link';
 
 //
-import { Iconify } from '../../Iconify';
+import { Iconify } from '../../iconify';
 //
 import { StyledItem, StyledIcon } from './styles';
 

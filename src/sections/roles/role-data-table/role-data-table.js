@@ -20,6 +20,7 @@ import RoleTableToolbar from './role-table-toolbar';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name' },
+  { id: 'description', label: 'Description', width: 480 },
   { id: 'permissions', label: 'Permissions' },
   { id: 'modified', label: 'Modified' },
   { id: '', width: 88 },
@@ -191,6 +192,9 @@ const RoleDataTable = () => {
         rowsPerPage={perPage}
         onPageChange={(event, newPage) => setPage(newPage)}
         onRowsPerPageChange={(event) => setPerPage(event.target.value)}
+        //
+        dense={table.dense}
+        onChangeDense={table.onChangeDense}
       />
     </Card>
   );

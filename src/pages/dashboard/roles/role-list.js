@@ -1,10 +1,11 @@
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import { Helmet } from 'react-helmet-async';
-import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
+import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { Iconify } from 'src/components/iconify';
 import { RouterLink } from 'src/components/router-link';
 import { useSettingsContext } from 'src/components/settings';
+import { PROJECT_NAME } from 'src/config-global';
 import { paths } from 'src/paths';
 import { RoleDataTable } from 'src/sections/roles/role-data-table';
 
@@ -14,7 +15,7 @@ const RoleList = () => {
   return (
     <>
       <Helmet>
-        <title>Dashboard: Role List</title>
+        <title>Dashboard: Role List | {PROJECT_NAME}</title>
       </Helmet>
 
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>

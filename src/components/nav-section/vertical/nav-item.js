@@ -7,7 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 // routes
 import { RouterLink } from 'src/components/router-link';
 //
-import { Iconify } from '../../Iconify';
+import { Iconify } from '../../iconify';
 //
 import { StyledItem, StyledIcon, StyledDotIcon } from './styles';
 

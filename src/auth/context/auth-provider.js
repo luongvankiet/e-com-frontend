@@ -161,9 +161,9 @@ export function AuthProvider({ children }) {
 
       if (typeof permissions === 'string') return userPermissions.has(permissions);
 
-      if (typeof permissions === 'object')
+      if (typeof permissions === 'object') {
         return permissions.every((perm) => userPermissions.has(perm));
-
+      }
       return false;
     },
     [isSuperAdmin, state]

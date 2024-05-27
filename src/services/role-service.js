@@ -10,7 +10,7 @@ export const RoleService = {
 
     const { data, isLoading, error } = useSWR(urlWithQueryString(URL, queryFilters), fetcher);
 
-    const memorizedValue = useMemo(
+    const memoizedValue = useMemo(
       () => ({
         roles: data?.data || [],
         rolesTotal: data?.meta?.total || 0,
@@ -21,7 +21,7 @@ export const RoleService = {
       [data?.data, data?.meta?.total, error, isLoading]
     );
 
-    return memorizedValue;
+    return memoizedValue;
   },
 
   useGetRoleDetail: (id) => {
@@ -29,7 +29,7 @@ export const RoleService = {
 
     const { data, isLoading, error } = useSWR(URL, fetcher);
 
-    const memorizedValue = useMemo(
+    const memoizedValue = useMemo(
       () => ({
         role: data?.data || [],
         roleLoading: isLoading,
@@ -38,7 +38,7 @@ export const RoleService = {
       [data?.data, error, isLoading]
     );
 
-    return memorizedValue;
+    return memoizedValue;
   },
 
   createRole: (body) => axios.post(api.roles.create, body),

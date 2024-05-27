@@ -8,7 +8,7 @@ import { paths } from './paths';
 export const HOST_API = process.env.REACT_APP_HOST_API;
 export const ASSETS_API = process.env.REACT_APP_ASSETS_API;
 export const ASSETS_URL = process.env.REACT_APP_ASSETS_URL;
-export const PROJECT_NAME = 'E-commerce';
+export const PROJECT_NAME = process.env.REACT_APP_PROJECT_NAME || 'E-commerce';
 
 export const FIREBASE_API = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

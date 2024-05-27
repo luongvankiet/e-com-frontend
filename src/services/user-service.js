@@ -10,7 +10,7 @@ export const UserService = {
 
     const { data, isLoading, error } = useSWR(urlWithQueryString(URL, queryFilters), fetcher);
 
-    const memorizedValue = useMemo(
+    const memoizedValue = useMemo(
       () => ({
         users: data?.data || [],
         usersTotal: data?.meta?.total || 0,
@@ -21,7 +21,7 @@ export const UserService = {
       [data?.data, data?.meta?.total, error, isLoading]
     );
 
-    return memorizedValue;
+    return memoizedValue;
   },
 
   useGetUserStatusCount: () => {
@@ -31,14 +31,40 @@ export const UserService = {
 
     const memoizedValue = useMemo(
       () => ({
-        status: data?.data || [],
-        statusError: error,
+        usersStatus: data?.data || [],
+        usersStatusError: error,
       }),
       [data?.data, error]
     );
 
     return memoizedValue;
   },
+
+  useGetUserDetail: (id) => {
+    const URL = api.users.detail(id);
+
+    const { data, isLoading, error } = useSWR(URL, fetcher);
+
+    const memoizedValues = useMemo(
+      () => ({
+        user: data?.data,
+        userLoading: isLoading,
+        userError: error,
+      }),
+      [data?.data, error, isLoading]
+    );
+
+    return memoizedValues;
+  },
+
+  createUser: (body) => axios.post(api.users.create, body),
+
+  updateUser: (id, body) =>
+    axios.post(api.users.update(id), body, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }),
 
   deleteOne: (id) => axios.delete(api.users.deleteOne(id)),
 

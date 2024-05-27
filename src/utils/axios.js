@@ -3,6 +3,7 @@ import axios from 'axios';
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_HOST_API,
   headers: {
+    'Accept': 'application/json',
     'X-Requested-With': 'XMLHttpRequest',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true,

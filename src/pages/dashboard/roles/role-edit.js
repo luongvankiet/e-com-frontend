@@ -1,10 +1,11 @@
 import { Container } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
+import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { useSettingsContext } from 'src/components/settings';
+import { PROJECT_NAME } from 'src/config-global';
 import { useParams } from 'src/hooks/routes';
 import { paths } from 'src/paths';
-import RoleEditForm from 'src/sections/roles/role-edit-form';
+import RoleCreateEditForm from 'src/sections/roles/role-create-edit-form';
 import { RoleService } from 'src/services/role-service';
 
 export default function RoleEdit() {
@@ -12,12 +13,12 @@ export default function RoleEdit() {
 
   const { id } = useParams();
 
-  const { role, roleLoading } = RoleService.useGetRoleDetail(id);
+  const { role } = RoleService.useGetRoleDetail(id);
 
   return (
     <>
       <Helmet>
-        <title>Dashboard: Role Edit</title>
+        <title>Dashboard: Role Edit | {PROJECT_NAME}</title>
       </Helmet>
 
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
@@ -27,14 +28,14 @@ export default function RoleEdit() {
             { name: 'Dashboard', href: paths.dashboard.root },
             { name: 'Settings', href: paths.dashboard.settings.root },
             { name: 'Roles', href: paths.dashboard.settings.roles.root },
-            { name: 'Role Edit' },
+            { name: 'Detail' },
           ]}
           sx={{
             mb: { xs: 3, md: 5 },
           }}
         />
 
-        <RoleEditForm role={role} />
+        <RoleCreateEditForm role={role} />
       </Container>
     </>
   );

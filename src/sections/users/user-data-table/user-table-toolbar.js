@@ -85,7 +85,7 @@ export default function UserTableToolbar({
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
           <TextField
             fullWidth
-            value={filters.name}
+            value={filters.search}
             onChange={handleFilterName}
             placeholder="Search..."
             InputProps={{

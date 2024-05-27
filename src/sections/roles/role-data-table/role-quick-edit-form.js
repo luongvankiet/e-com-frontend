@@ -15,8 +15,9 @@ import {
 import Grid from '@mui/material/Unstable_Grid2';
 import { useFormik } from 'formik';
 import { useSnackbar } from 'notistack';
-import { useState } from 'react';
-import { PermissionBasedGuard } from 'src/auth/guard/permission-based-guard';
+import { useContext, useState } from 'react';
+import { AuthContext } from 'src/auth/context';
+import { PermissionBasedGuard } from 'src/auth/guard';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { RoleService } from 'src/services/role-service';
 import { containsAll, containsAtLeastOne } from 'src/utils/array';
@@ -24,6 +25,8 @@ import { snakeToTitle } from 'src/utils/string';
 import * as Yup from 'yup';
 
 export const RoleQuickEditForm = ({ role, permissions, open, onClose, onDeleteRow, onRefresh }) => {
+  const { hasPermissions } = useContext(AuthContext);
+
   const [errorMessage, setErrorMessage] = useState('');
 
   const { enqueueSnackbar } = useSnackbar();
@@ -44,15 +47,19 @@ export const RoleQuickEditForm = ({ role, permissions, open, onClose, onDeleteRo
       isSubmitting.onTrue();
 
       try {
+        if (!hasPermissions('roles.assign-permissions')) {
+          delete values.permissions;
+        }
+
         await RoleService.updateRole(role.id, values);
 
         setErrorMessage('');
-        enqueueSnackbar(`${role ? 'Update' : 'Create'}! successfully!`, { variant: 'success' });
+        enqueueSnackbar('Update successfully!', { variant: 'success' });
         onRefresh();
         onClose();
       } catch (error) {
         setErrorMessage(error || 'Something went wrong, please refresh page and try again!');
-        enqueueSnackbar(`Failed to ${role ? 'update' : 'create'}!`, { variant: 'error' });
+        enqueueSnackbar('Failed to update!', { variant: 'error' });
       }
 
       isSubmitting.onFalse();
@@ -86,19 +93,11 @@ export const RoleQuickEditForm = ({ role, permissions, open, onClose, onDeleteRo
   };
 
   return (
-    <Dialog
-      maxWidth="md"
-      fullWidth
-      open={open}
-      onClose={onClose}
-      PaperProps={{
-        sx: { py: 2 },
-      }}
-    >
+    <Dialog maxWidth="md" fullWidth open={open} onClose={onClose}>
       <form noValidate onSubmit={formik.handleSubmit}>
         <DialogTitle>Quick Update</DialogTitle>
 
-        <PermissionBasedGuard permissions={['roles.view']}>
+        <PermissionBasedGuard permissions={['roles.update']}>
           <DialogContent>
             <Stack spacing={3} sx={{ mt: 2 }}>
               {errorMessage && (
@@ -118,7 +117,7 @@ export const RoleQuickEditForm = ({ role, permissions, open, onClose, onDeleteRo
                 type="text"
                 value={formik.values.name}
               />
-              
+
               <TextField
                 type="text"
                 fullWidth
@@ -133,67 +132,68 @@ export const RoleQuickEditForm = ({ role, permissions, open, onClose, onDeleteRo
                 rows={3}
               />
 
-              <Stack
-                spacing={2}
-                sx={{
-                  pt: 0,
-                  p: 4,
-                  width: 1,
-                  borderRadius: 2,
-                  bgcolor: 'background.neutral',
-                }}
-              >
-                <Typography variant="h5">Permissions</Typography>
-                <Grid container rowSpacing={4} direction="row">
-                  {Object.keys(permissions).map((group) => (
-                    <Grid xs={12} md={6} key={group}>
-                      <FormControlLabel
-                        label={<Typography variant="subtitle1">{snakeToTitle(group)}</Typography>}
-                        control={
-                          <Checkbox
-                            size="small"
-                            checked={containsAll(
-                              permissions[group] || [],
-                              formik.values.permissions || []
-                            )}
-                            indeterminate={
-                              containsAtLeastOne(
+              {hasPermissions('roles.assign-permissions') && (
+                <Stack
+                  spacing={2}
+                  sx={{
+                    pt: 0,
+                    p: 4,
+                    width: 1,
+                    borderRadius: 2,
+                    bgcolor: 'background.neutral',
+                  }}
+                >
+                  <Typography variant="h5">Permissions</Typography>
+                  <Grid container rowSpacing={4} direction="row">
+                    {Object.keys(permissions).map((group, index) => (
+                      <Grid xs={12} md={6} key={`${group}-${index}`}>
+                        <FormControlLabel
+                          label={<Typography variant="subtitle1">{snakeToTitle(group)}</Typography>}
+                          control={
+                            <Checkbox
+                              size="small"
+                              checked={containsAll(
                                 permissions[group] || [],
                                 formik.values.permissions || []
-                              ) &&
-                              !containsAll(
-                                permissions[group] || [],
-                                formik.values.permissions || []
-                              )
-                            }
-                            onChange={(event) => handleSelectPermissionGroup(event, group)}
-                          />
-                        }
-                        // sx={{ ml: 0, mr: 1 }}
-                      />
+                              )}
+                              indeterminate={
+                                containsAtLeastOne(
+                                  permissions[group] || [],
+                                  formik.values.permissions || []
+                                ) &&
+                                !containsAll(
+                                  permissions[group] || [],
+                                  formik.values.permissions || []
+                                )
+                              }
+                              onChange={(event) => handleSelectPermissionGroup(event, group)}
+                            />
+                          }
+                        />
 
-                      <Stack spacing={1} sx={{ mt: 1 }} useFlexGap flexWrap="wrap">
-                        {permissions[group].map((permission) => (
-                          <FormControlLabel
-                            key={permission.name}
-                            label={permission.description || permission.name}
-                            control={
-                              <Checkbox
-                                checked={
-                                  !!formik.values.permissions.find(
-                                    (value) => value.name === permission.name
-                                  )
-                                }
-                                onChange={(event) => handleSelectPermission(event, permission)}
-                              />
-                            }
-                          />
-                        ))}
-                      </Stack>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Stack>
+                        <Stack spacing={1} sx={{ mt: 1 }} useFlexGap flexWrap="wrap">
+                          {permissions[group].map((permission, permissionIndex) => (
+                            <FormControlLabel
+                              key={`${permission.name}-${permissionIndex}`}
+                              label={permission.description || permission.name}
+                              control={
+                                <Checkbox
+                                  checked={
+                                    !!formik.values.permissions.find(
+                                      (value) => value.name === permission.name
+                                    )
+                                  }
+                                  onChange={(event) => handleSelectPermission(event, permission)}
+                                />
+                              }
+                            />
+                          ))}
+                        </Stack>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Stack>
+              )}
             </Stack>
           </DialogContent>
 

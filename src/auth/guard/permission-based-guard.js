@@ -7,17 +7,19 @@ import Typography from '@mui/material/Typography';
 import { ForbiddenIllustration } from 'src/assets/illustrations';
 // components
 import { useContext } from 'react';
-import { Outlet } from 'react-router-dom';
 import { MotionContainer, varBounce } from 'src/components/animate';
 import { AuthContext } from '../context';
 
 // ----------------------------------------------------------------------
 
-export function PermissionBasedGuard({ permissions, sx }) {
+export default function PermissionBasedGuard({ children, permissions, onlySuperAdmin, sx }) {
   // Logic here to get current user role
-  const { hasPermissions } = useContext(AuthContext);
+  const { hasPermissions, isSuperAdmin } = useContext(AuthContext);
 
-  if (typeof permissions !== 'undefined' && !!permissions.length && !hasPermissions(permissions)) {
+  if (
+    (onlySuperAdmin && isSuperAdmin) ||
+    (typeof permissions !== 'undefined' && !!permissions.length && !hasPermissions(permissions))
+  ) {
     return (
       <Container component={MotionContainer} sx={{ m: 'auto', textAlign: 'center', ...sx }}>
         <m.div variants={varBounce().in}>
@@ -28,7 +30,7 @@ export function PermissionBasedGuard({ permissions, sx }) {
 
         <m.div variants={varBounce().in}>
           <Typography sx={{ color: 'text.secondary' }}>
-            You do not have permission to access this page
+            You do not have permission to access this page or perform this action
           </Typography>
         </m.div>
 
@@ -44,7 +46,7 @@ export function PermissionBasedGuard({ permissions, sx }) {
     );
   }
 
-  return <Outlet />;
+  return <>{children}</>;
 }
 
 PermissionBasedGuard.propTypes = {

@@ -2,6 +2,7 @@ import PasswordIcon from './password-icon';
 import TickIcon from './tick-icon';
 import CrossIcon from './cross-icon';
 import MenuIcon from './menu-icon';
+import TruckDeliveryIcon from './truck-delivery-icon';
 import SvgColor from './svg-color';
 import Iconify from './iconify';
 
@@ -38,4 +39,4 @@ const ICONS = {
   accountSettings: <Iconify icon="material-symbols:manage-accounts" />,
 };
 
-export { PasswordIcon, TickIcon, CrossIcon, MenuIcon, SvgColor, ICONS };
+export { PasswordIcon, TickIcon, CrossIcon, MenuIcon, TruckDeliveryIcon, SvgColor, ICONS };

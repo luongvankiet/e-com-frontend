@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
-import { AuthLayout, DashboardLayout } from 'src/layouts';
+import { AuthLayout, ClientLayout, DashboardLayout } from 'src/layouts';
 import { views } from 'src/paths';
-import { PermissionBasedGuard } from './auth/guard/permission-based-guard';
+import { PermissionBasedGuard } from './auth/guard';
 
 // get all paths which are defined in paths.js file
 export const getPaths = (r, parentIndex = 0) => {
@@ -25,28 +25,7 @@ export const getPaths = (r, parentIndex = 0) => {
 };
 
 // get all routes which are defined in paths.js file
-export const getGuessRoutes = (r, parentIndex = 0) => {
-  let rs = [];
-
-  r.map((item, index) => {
-    const key = parentIndex.toString() + index;
-
-    if (item.action && item.element) {
-      rs.push(<Route key={key} path={item.action} element={item.element} />);
-    }
-
-    if (item.children?.length) {
-      rs = rs.concat(getGuessRoutes(item.children, key));
-    }
-
-    return item;
-  });
-
-  return rs;
-};
-
-// get all routes which are defined in paths.js file
-export const getAdminRoutes = (r, parentIndex = 0) => {
+export const getRoutes = (r, parentIndex = 0) => {
   let rs = [];
 
   r.map((item, index) => {
@@ -54,14 +33,20 @@ export const getAdminRoutes = (r, parentIndex = 0) => {
 
     if (item.action && item.element) {
       rs.push(
-        <Route key={key} element={<PermissionBasedGuard permissions={item.permissions} />}>
-          <Route path={item.action} element={item.element} />
-        </Route>
+        <Route
+          key={key}
+          path={item.action}
+          element={
+            <PermissionBasedGuard permissions={item.permissions}>
+              {item.element}
+            </PermissionBasedGuard>
+          }
+        />
       );
     }
 
     if (item.children?.length) {
-      rs = rs.concat(getAdminRoutes(item.children, key));
+      rs = rs.concat(getRoutes(item.children, key));
     }
 
     return item;
@@ -72,9 +57,9 @@ export const getAdminRoutes = (r, parentIndex = 0) => {
 
 const RenderRouters = () => (
   <Routes>
-    <Route element={<AuthLayout />}>{getGuessRoutes(views.auth)}</Route>
-    <Route element={<DashboardLayout />}>{getAdminRoutes(views.dashboard)}</Route>
-    {/* <Route element={<ClientLayout />}>{getRoutes(views.client)}</Route> */}
+    <Route element={<AuthLayout />}>{getRoutes(views.auth)}</Route>
+    <Route element={<DashboardLayout />}>{getRoutes(views.dashboard)}</Route>
+    <Route element={<ClientLayout />}>{getRoutes(views.client)}</Route>
   </Routes>
 );
 

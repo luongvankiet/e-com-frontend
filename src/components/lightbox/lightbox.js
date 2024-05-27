@@ -9,7 +9,7 @@ import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 // @mui
 import Box from '@mui/material/Box';
 //
-import { Iconify } from '../Iconify';
+import { Iconify } from '../iconify';
 //
 import StyledLightbox from './styles';
 

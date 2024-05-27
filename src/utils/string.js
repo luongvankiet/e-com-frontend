@@ -33,7 +33,8 @@ export const urlWithQueryString = (url, queryFilters) => {
     if (
       queryFilters[queryName] === undefined ||
       queryFilters[queryName] === null ||
-      queryFilters[queryName] === ''
+      queryFilters[queryName] === '' ||
+      queryFilters[queryName]?.length <= 0
     ) {
       return '';
     }

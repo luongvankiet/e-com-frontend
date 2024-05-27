@@ -1,6 +1,6 @@
 //
 import PropTypes from 'prop-types';
-import { Iconify } from '../Iconify';
+import { Iconify } from '../iconify';
 
 // ----------------------------------------------------------------------
 

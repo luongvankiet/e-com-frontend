@@ -29,7 +29,7 @@ const RoleTableRow = ({
   onDeleteRow,
   onRefresh,
 }) => {
-  const { id, name, display_name, permissions_count, updated_at } = role;
+  const { id, name, description, display_name, permissions_count, updated_at } = role;
 
   const confirm = useBoolean();
 
@@ -63,6 +63,8 @@ const RoleTableRow = ({
             }}
           />
         </TableCell>
+
+        <TableCell>{description}</TableCell>
 
         <TableCell sx={{ whiteSpace: 'nowrap' }}>
           <Label>{permissions_count}</Label>
