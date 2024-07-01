@@ -34,14 +34,16 @@ const ProductTableRow = ({
   onRefresh,
 }) => {
   const {
-    id,
     name,
     sku,
+    slug,
     price,
     discount_price,
     brand,
     featured_image,
     quantity = 0,
+    status_label,
+    status_color,
     deleted_at,
     published_at,
     updated_at,
@@ -79,7 +81,7 @@ const ProductTableRow = ({
             primary={
               <Link
                 component={RouterLink}
-                href={replaceId(paths.dashboard.products.edit, id)}
+                href={replaceId(paths.dashboard.products.view, slug)}
                 sx={{ color: 'text.secondary', typography: 'subtitle1' }}
               >
                 {name}
@@ -116,6 +118,12 @@ const ProductTableRow = ({
               color: 'text.disabled',
             }}
           />
+        </TableCell>
+
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>
+          <Label variant="soft" color={status_color}>
+            {status_label}
+          </Label>
         </TableCell>
 
         <TableCell sx={{ whiteSpace: 'nowrap' }}>

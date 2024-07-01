@@ -25,7 +25,8 @@ const paths = {
     products: {
       root: `${ROOTS.DASHBOARD}/products`,
       create: `${ROOTS.DASHBOARD}/products/create`,
-      edit: `${ROOTS.DASHBOARD}/products/:id`,
+      edit: `${ROOTS.DASHBOARD}/products/:id/edit`,
+      view: `${ROOTS.DASHBOARD}/products/:id`,
     },
     orders: {
       root: `${ROOTS.DASHBOARD}/orders`,

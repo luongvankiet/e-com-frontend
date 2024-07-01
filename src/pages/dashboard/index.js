@@ -25,5 +25,6 @@ export { default as CategoryEdit } from './categories/category-edit';
 export { default as ProductList } from './products/product-list';
 export { default as ProductCreate } from './products/product-create';
 export { default as ProductEdit } from './products/product-edit';
+export { default as ProductView } from './products/product-view';
 
 export { default as Settings } from './settings/settings';

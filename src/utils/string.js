@@ -1,5 +1,5 @@
 export const slice = (string, limit = 200) =>
-  string.length > limit ? `${string.slice(0, limit)}...` : string;
+  string?.length > limit ? `${string.slice(0, limit)}...` : string;
 
 export const isValidEmail = (email) => {
   const regex =

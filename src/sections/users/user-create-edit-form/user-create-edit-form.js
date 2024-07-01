@@ -54,12 +54,12 @@ const UserCreateEditForm = ({ currentUser }) => {
       role_id:
         currentUser?.role?.id ||
         roles.find((role) => role.name !== 'super_admin' && role.name !== 'admin')?.id,
-      address_line_1: currentUser?.address?.address_line_1 || '',
-      address_line_2: currentUser?.address?.address_line_2 || '',
-      city: currentUser?.address?.city || '',
-      state: currentUser?.address?.state || '',
-      country: currentUser?.address?.country || '',
-      postcode: currentUser?.address?.postcode || '',
+      address_line_1: currentUser?.default_address?.address_line_1 || '',
+      address_line_2: currentUser?.default_address?.address_line_2 || '',
+      city: currentUser?.default_address?.city || '',
+      state: currentUser?.default_address?.state || '',
+      country: currentUser?.default_address?.country || '',
+      postcode: currentUser?.default_address?.postcode || '',
       password: '',
       password_confirmation: '',
       image: currentUser?.image || null,
