@@ -20,6 +20,7 @@ import { HEADER } from 'src/layouts/config-layout';
 import { MotionContainer, varFade } from 'src/components/animate';
 import { Iconify } from 'src/components/iconify';
 import { RouterLink } from 'src/components/router-link';
+import { PROJECT_NAME } from 'src/config-global';
 import { paths } from 'src/paths';
 import { ProductItemSkeleton } from '../products/product-skeleton';
 
@@ -193,7 +194,7 @@ export default function HomeHero() {
             repeat: Infinity,
           }}
         >
-          Phón Store
+          {PROJECT_NAME}
         </StyledTextGradient>
       </m.div>
 

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import {
   Box,
   Button,
@@ -6,27 +5,24 @@ import {
   CardContent,
   Container,
   ListItemText,
-  Stack,
   Typography,
   alpha,
+  useTheme,
 } from '@mui/material';
-import React from 'react';
-import Carousel, { CarouselDots, useCarousel } from 'src/components/carousel';
 import { m } from 'framer-motion';
-
-import Image from 'src/components/image';
-import { useTheme } from '@emotion/react';
+import PropTypes from 'prop-types';
 import { MotionViewport, varFade } from 'src/components/animate';
-
-import { _ecommerceNewProducts } from 'src/_mock';
-import ProductService from 'src/services/product-service';
+import Carousel, { CarouselDots, useCarousel } from 'src/components/carousel';
+import Image from 'src/components/image';
+import Label from 'src/components/label';
+import { ProductService } from 'src/services/product-service';
 
 const HomeNewProducts = () => {
-  const { products, productLoading, setProductQueryFilters, refreshProductList } =
-    ProductService.useGetProductList({ perPage: 5, featured: true });
+  const { products } = ProductService.useGetProductList({perPage: 5});
 
   const carousel = useCarousel({
     speed: 1000,
+    autoplaySpeed: 4000,
     autoplay: true,
     ...CarouselDots({
       sx: {
@@ -42,30 +38,18 @@ const HomeNewProducts = () => {
     <Container
       component={MotionViewport}
       sx={{
-        py: { xs: 10, md: 15 },
+        py: 5,
       }}
     >
-      <Stack
-        spacing={3}
-        sx={{
-          textAlign: 'center',
-          mb: { xs: 5, md: 10 },
-        }}
-      >
-        <m.div variants={varFade().inDown}>
-          <Typography variant="h2">What do we offer?</Typography>
-        </m.div>
-
-        <m.div variants={varFade().inDown}>
-          <Card>
-            <Carousel {...carousel.carouselSettings}>
-              {products.map((item) => (
-                <CarouselItem key={item.id} item={item} />
-              ))}
-            </Carousel>
-          </Card>
-        </m.div>
-      </Stack>
+      <m.div variants={varFade().inUp}>
+        <Card>
+          <Carousel {...carousel.carouselSettings}>
+            {products.map((product) => (
+              <CarouselItem key={product.id} item={product} />
+            ))}
+          </Carousel>
+        </Card>
+      </m.div>
     </Container>
   );
 };
@@ -75,15 +59,15 @@ export default HomeNewProducts;
 function CarouselItem({ item }) {
   const theme = useTheme();
 
-  const { images, name, description } = item;
+  const { featured_image, name, short_description } = item;
 
   const renderImg = (
     <Image
       alt={name}
-      src={images?.find((image) => !!image.is_featured)?.url}
-      overlay={`linear-gradient(to bottom, ${alpha(theme.palette.grey[900], 0)} 0%, ${
-        theme.palette.grey[900]
-      } 75%)`}
+      src={featured_image?.url}
+      overlay={`linear-gradient(to bottom, ${alpha(theme.palette.grey[500], 0)} 0%, ${
+        theme.palette.grey[500]
+      } 95%)`}
       sx={{
         width: 1,
         height: { xs: 560, md: 660 },
@@ -104,9 +88,12 @@ function CarouselItem({ item }) {
           color: 'common.white',
         }}
       >
-        <Typography variant="overline" sx={{ opacity: 0.48 }}>
+        <Label color="secondary" variant="filled">
           New
-        </Typography>
+        </Label>
+        {/* <Typography variant="overline" sx={{ opacity: 0.48 }}>
+          New
+        </Typography> */}
 
         <ListItemText
           sx={{ mt: 1, mb: 3 }}
@@ -118,12 +105,10 @@ function CarouselItem({ item }) {
           }
           secondary={
             <Typography noWrap variant="body2">
-              {name}
+              {short_description}
             </Typography>
           }
         />
-
-        <Typography variant="overline" sx={{ opacity: 0.48 }} />
 
         <Button color="primary" variant="contained">
           Buy Now

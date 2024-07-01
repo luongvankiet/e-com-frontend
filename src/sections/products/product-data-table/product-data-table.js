@@ -53,6 +53,7 @@ const TABLE_HEAD = [
   { id: 'sku', label: 'SKU', width: 200 },
   { id: 'quantity', label: 'Stock', width: 120 },
   { id: 'price', label: 'Price', width: 140 },
+  { id: 'status', label: 'Status', width: 110 },
   { id: 'publish', label: 'Publish', width: 110 },
   { id: 'modified', label: 'Modified', width: 160 },
   { id: '', width: 88 },

@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom';
 import { ICONS } from 'src/components/icons';
 import { NotFoundPage, Page500 } from 'src/pages';
 import { Login, Register } from 'src/pages/auth';
-import { Home } from 'src/pages/client';
+import { Home, Shop } from 'src/pages/client';
 import {
   BrandCreate,
   BrandEdit,
@@ -13,6 +13,7 @@ import {
   Overview,
   ProductCreate,
   ProductEdit,
+  ProductView,
   ProductList,
   RoleCreate,
   RoleEdit,
@@ -133,8 +134,15 @@ const dashboard = [
       {
         name: 'Edit',
         action: paths.dashboard.products.edit,
-        permissions: ['products.view'],
+        permissions: ['products.update'],
         element: <ProductEdit />,
+        isRoute: true,
+      },
+      {
+        name: 'Detail',
+        action: paths.dashboard.products.view,
+        permissions: ['products.view'],
+        element: <ProductView />,
         isRoute: true,
       },
     ],
@@ -185,6 +193,11 @@ const client = [
     name: 'Home',
     action: paths.client.home,
     element: <Home />,
+  },
+  {
+    name: 'Shop',
+    action: paths.client.products.shop,
+    element: <Shop />,
   },
   {
     action: '/500',
